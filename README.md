@@ -216,3 +216,67 @@ nnoremap <C-j> 10j
 nnoremap <C-k> 10k
 
 ```
+
+```
+#!/bin/bash
+
+# Оновлення системи
+echo "Оновлення системи..."
+sudo dnf update -y
+
+# Встановлення базових утиліт
+echo "Встановлення основних утиліт..."
+sudo dnf install -y git curl wget unzip htop neofetch nano vim
+
+# Встановлення GNOME Tweaks та редактора конфігурацій
+echo "Встановлення GNOME Tweaks..."
+sudo dnf install -y gnome-tweaks dconf-editor gparted
+
+# Встановлення RPM Fusion (для кодеків, драйверів NVIDIA)
+echo "Додавання репозиторіїв RPM Fusion..."
+sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+# Встановлення Flathub
+echo "Додавання репозиторію Flathub..."
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# Встановлення браузерів
+echo "Встановлення Firefox і Google Chrome..."
+sudo dnf install -y firefox
+flatpak install flathub com.google.Chrome
+
+# Встановлення інструментів для розробки
+echo "Встановлення інструментів для розробки..."
+sudo dnf install -y gcc g++ make cmake clang binutils
+sudo dnf install -y dotnet-sdk-8.0
+sudo dnf module install -y nodejs:20
+sudo dnf install -y python3 python3-pip
+sudo dnf install -y java-17-openjdk-devel
+sudo dnf install -y podman podman-docker
+
+# Встановлення VS Code
+echo "Встановлення Visual Studio Code..."
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+sudo dnf install -y code
+
+# Встановлення Python Virtualenv
+echo "Встановлення Python Virtualenv..."
+sudo dnf install -y python3-virtualenv
+
+# Встановлення Tmux, zsh
+echo "Встановлення Tmux і zsh..."
+sudo dnf install -y zsh tmux
+
+# Встановлення Flatpak-додатків
+echo "Встановлення Flatpak-додатків..."
+flatpak install flathub com.slack.Slack
+flatpak install flathub com.discordapp.Discord
+flatpak install flathub com.spotify.Client
+flatpak install flathub com.getpostman.Postman
+flatpak install flathub org.gnome.Boxes
+
+echo "Інсталяція завершена! Не забудьте перезавантажити систему!"
+
+```
