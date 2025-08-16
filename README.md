@@ -105,3 +105,11 @@ function hist {
 }
 
 ```
+
+
+```
+Install-Module posh-git -Scope CurrentUser -Force
+Install-Module PSFzf -Scope CurrentUser -Force
+Install-Module -Name Terminal-Icons -Repository PSGallery -Scope CurrentUser -Force
+Install-Module z -Scope CurrentUser -Force
+```
