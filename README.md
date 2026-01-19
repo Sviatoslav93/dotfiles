@@ -117,70 +117,91 @@ Install-Module z -Scope CurrentUser -Force
 
 
 ```
-    {
-        "key": "ctrl+j",
-        "command": "workbench.action.quickOpenNavigateNext",
-        "when": "inQuickOpen"
-    },
-    {
-        "key": "ctrl+k",
-        "command": "workbench.action.quickOpenNavigatePrevious",
-        "when": "inQuickOpen"
-    },
-    {
-        "key": "ctrl+j",
-        "command": "selectNextSuggestion",
-        "when": "suggestWidgetVisible"
-    },
-    {
-        "key": "ctrl+k",
-        "command": "selectPrevSuggestion",
-        "when": "suggestWidgetVisible"
-    },
-    {
-        "key": "ctrl+j",
-        "command": "list.focusDown",
-        "when": "listFocus && !inputFocus"
-    },
-    {
-        "key": "ctrl+k",
-        "command": "list.focusUp",
-        "when": "listFocus && !inputFocus"
-    },
-    {
-        "key": "ctrl+j",
-        "command": "selectNextCodeAction",
-        "when": "codeActionMenuVisible"
-    },
-    {
-        "key": "ctrl+k",
-        "command": "selectPrevCodeAction",
-        "when": "codeActionMenuVisible"
-    },
-    {
-        "key": "ctrl+j",
-        "command": "showNextParameterHint",
-        "when": "parameterHintsVisible"
-    },
-    {
-        "key": "ctrl+k",
-        "command": "showPrevParameterHint",
-        "when": "parameterHintsVisible"
-    },
-    {
-        "key": "ctrl+alt+j",
-        "command": "editor.action.inlineSuggest.acceptNextWord",
-        "when": "inlineSuggestionVisible && !editorReadonly"
-    },
-    {
-        "key": "ctrl+alt+l",
-        "command": "editor.action.inlineSuggest.accept",
-        "when": "inlineSuggestionVisible && !editorReadonly"
-    },
-    {
-        "key": "ctrl+alt+;",
-        "command": "editor.action.inlineSuggest.showNext",
-        "when": "inlineSuggestionVisible && !editorReadonly"
-    }
+    " .vsvimrc - VsVim configuration file
+
+" Basic settings
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+" Leader key
+let mapleader=" "
+
+" go to normal mode
+inoremap jk <Esc>
+inoremap jj <Esc>
+
+" keep search results in the center of the screen
+nnoremap n nzz
+nnoremap N Nzz
+
+" fast moving
+nnoremap J 8j
+nnoremap K 8k
+nnoremap <leader>j J
+
+" comments
+nnoremap <leader>/ :vscmd Edit.ToggleLineComment<CR>
+xnoremap <leader>/ :vscmd Edit.ToggleLineComment<CR>
+
+" Basic mappings
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+
+" navigation mappings
+nnoremap gd :vsc Edit.GoToDefinition<CR>
+nnoremap gi :vsc Edit.GoToImplementation<CR>
+nnoremap pd :vsc Edit.PeekDefinition<CR>
+nnoremap fr :vsc Edit.FindAllReferences<CR>
+
+"nnoremap <C-p> :vsc View.NavigateBackward<CR>
+"nnoremap <C-n> :vsc View.NavigateForward<CR>
+
+" refactoring
+nnoremap <Leader>r :vscmd Refactor.Rename<CR>
+nnoremap <Leader>a :vsc Refactor.QuickActions<CR>
+nnoremap <Leader>f :vsc Edit.FormatDocument<CR>
+nnoremap <Leader>fr :vsc Edit.FindAllReferences<CR>
+
+" debugging
+map <Leader>b :vsc Debug.ToggleBreakpoint<CR>
+
+" others
+map <Leader>k :vsc Window.PinTab<CR>
+map <Leader>ot :vsc Window.KeepTabOpen<CR>
+
+" Show parameter and quick info
+map <Leader>sp :vsc Edit.ParameterInfo<CR>
+map <Leader>p :vsc Edit.ParameterInfo<CR>
+map <Leader>si :vsc Edit.QuickInfo<CR>
+map <Leader>i :vsc Edit.QuickInfo<CR>
+
+" add empty lines with no insert mode
+nmap <S-enter> O<Esc>
+nmap <enter> o<Esc>
+
+" H/L is more natural than 0/$
+map H ^
+map L $
+
+" reselect visual block after indent
+vnoremap < <gv
+vnoremap > >gv
+
+" Multi-cursor (VS)
+nnoremap <leader>d :vscmd Edit.AddNextOccurrence<CR>
+nnoremap <leader>D :vscmd Edit.AddPreviousOccurrence<CR>
+nnoremap <leader>A :vscmd Edit.SelectAllOccurrences<CR>
+
+nnoremap s :vsc Tools.InvokePeasyMotion<CR>
+
+nnoremap <leader>m :vscmd Edit.ToggleBookmark<CR>
+nnoremap ]m :vscmd Edit.NextBookmark<CR>
+nnoremap [m :vscmd Edit.PreviousBookmark<CR>
+nnoremap <leader>M :vscmd View.BookmarkWindow<CR>
+
+" substitude
+nnoremap <leader>s :%s/\<<C-r><C-w>\>/new/gc
 
 ```
