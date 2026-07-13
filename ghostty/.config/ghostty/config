@@ -1,0 +1,23 @@
+theme = GitHub Dark
+
+font-family = JetBrainsMono Nerd Font
+font-size = 13
+
+background-opacity = 0.96
+
+window-theme = system
+gtk-titlebar = true
+maximize = true
+
+window-padding-x = 10
+window-padding-y = 10
+
+cursor-style = block
+cursor-style-blink = true
+
+scrollback-limit = 100000
+
+copy-on-select = false
+confirm-close-surface = false
+
+shell-integration = detect

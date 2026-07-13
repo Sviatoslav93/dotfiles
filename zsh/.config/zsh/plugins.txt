@@ -1,0 +1,12 @@
+# Productivity
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-syntax-highlighting
+
+# Better completions
+zsh-users/zsh-completions
+
+# Interactive completion
+Aloxaf/fzf-tab
+
+# History search
+zsh-users/zsh-history-substring-search

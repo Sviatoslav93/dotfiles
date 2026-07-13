@@ -1,0 +1,2 @@
+chadalen.vscode-jetbrains-icon-theme
+github.github-vscode-theme
