@@ -1,0 +1,14 @@
+{
+    "name": "GitHub Dark Midnight",
+    "colors": {
+        "background": "#090c10",
+        "foreground": "#d7dde5",
+        "primary": "#7ab7ff",
+        "secondary": "#6be6ff",
+        "success": "#8ef0a7",
+        "warning": "#f3d97b",
+        "error": "#ff838b",
+        "muted": "#6b7280",
+        "selection": "#23324d"
+    }
+}

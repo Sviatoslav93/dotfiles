@@ -8,3 +8,4 @@ stow ghostty
 stow starship
 # stow zellij
 stow nvim
+stow claude
