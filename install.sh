@@ -36,3 +36,6 @@ stow starship
 stow nvim
 stow claude
 stow lazygit
+
+# .NET SDK
+sudo dnf install -y dotnet-sdk
