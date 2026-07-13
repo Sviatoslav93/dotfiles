@@ -1,1 +1,16 @@
-
+bat
+eza
+fzf
+ghostty
+git
+git-delta
+kitty
+lazygit
+neovim
+ripgrep
+starship
+stow
+tmux
+unzip
+zoxide
+zsh
