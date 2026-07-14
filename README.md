@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Fedora or Ubuntu
+- Ubuntu
 - Git
 
 ## Install

@@ -8,11 +8,9 @@ detect_os() {
   # shellcheck disable=SC1091
   source /etc/os-release
   case "$ID" in
-    fedora) echo "fedora" ;;
     ubuntu|debian) echo "ubuntu" ;;
     *)
       case "$ID_LIKE" in
-        *fedora*) echo "fedora" ;;
         *ubuntu*|*debian*) echo "ubuntu" ;;
         *)
           echo "Unsupported OS: ID=$ID ID_LIKE=$ID_LIKE" >&2
@@ -21,15 +19,6 @@ detect_os() {
       esac
       ;;
   esac
-}
-
-install_packages_fedora() {
-  sudo dnf install -y dnf5-plugins
-  sudo dnf copr enable -y scottames/ghostty
-  sudo dnf copr enable -y atim/starship
-  sudo dnf copr enable -y dejan/lazygit
-  sudo dnf install -y $(cat dnf-packages.txt)
-  sudo dnf install -y dotnet-sdk
 }
 
 install_bat_symlink_ubuntu() {
@@ -112,16 +101,14 @@ stow_packages() {
   stow nvim
   stow claude
   stow lazygit
+  stow vscode-insiders
 }
 
 main() {
   local OS
   OS="$(detect_os)"
 
-  case "$OS" in
-    fedora) install_packages_fedora ;;
-    ubuntu) install_packages_ubuntu ;;
-  esac
+  [ "$OS" = "ubuntu" ] && install_packages_ubuntu
 
   install_antidote
   install_nerd_font
