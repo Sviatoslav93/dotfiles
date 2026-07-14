@@ -4,38 +4,128 @@ set -e
 
 cd "$(dirname "$0")"
 
-# Package installation
-sudo dnf install -y dnf5-plugins
-sudo dnf copr enable -y scottames/ghostty
-sudo dnf copr enable -y atim/starship
-sudo dnf copr enable -y dejan/lazygit
-sudo dnf install -y $(cat dnf-packages.txt)
+detect_os() {
+  # shellcheck disable=SC1091
+  source /etc/os-release
+  case "$ID" in
+    fedora) echo "fedora" ;;
+    ubuntu|debian) echo "ubuntu" ;;
+    *)
+      case "$ID_LIKE" in
+        *fedora*) echo "fedora" ;;
+        *ubuntu*|*debian*) echo "ubuntu" ;;
+        *)
+          echo "Unsupported OS: ID=$ID ID_LIKE=$ID_LIKE" >&2
+          exit 1
+          ;;
+      esac
+      ;;
+  esac
+}
 
-# Antidote (zsh plugin manager)
-ANTIDOTE_DIR="$HOME/.local/share/antidote"
-if [ ! -d "$ANTIDOTE_DIR" ]; then
-  git clone --depth=1 https://github.com/mattmc3/antidote.git "$ANTIDOTE_DIR"
-fi
+install_packages_fedora() {
+  sudo dnf install -y dnf5-plugins
+  sudo dnf copr enable -y scottames/ghostty
+  sudo dnf copr enable -y atim/starship
+  sudo dnf copr enable -y dejan/lazygit
+  sudo dnf install -y $(cat dnf-packages.txt)
+  sudo dnf install -y dotnet-sdk
+}
 
-# JetBrainsMono Nerd Font
-FONT_DIR="$HOME/.local/share/fonts/JetBrainsMono"
-if [ ! -d "$FONT_DIR" ]; then
-  mkdir -p "$FONT_DIR"
-  curl -fLo /tmp/JetBrainsMono.zip \
-    https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
-  unzip -o /tmp/JetBrainsMono.zip -d "$FONT_DIR"
-  rm /tmp/JetBrainsMono.zip
-  fc-cache -f "$FONT_DIR"
-fi
+install_bat_symlink_ubuntu() {
+  if ! command -v bat >/dev/null 2>&1; then
+    mkdir -p "$HOME/.local/bin"
+    ln -sf "$(command -v batcat)" "$HOME/.local/bin/bat"
+  fi
+}
 
-# Symlink dotfiles into place
-stow zsh
-stow ghostty
-stow starship
-# stow zellij
-stow nvim
-stow claude
-stow lazygit
+install_starship_ubuntu() {
+  if ! command -v starship >/dev/null 2>&1; then
+    curl -sS https://starship.rs/install.sh | sh -s -- -y
+  fi
+}
 
-# .NET SDK
-sudo dnf install -y dotnet-sdk
+install_lazygit_ubuntu() {
+  command -v lazygit >/dev/null 2>&1 && return
+
+  local lazygit_version lazygit_arch tmp_dir
+  lazygit_version="$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" \
+    | grep -Po '"tag_name": *"v\K[^"]*')"
+  lazygit_arch="$(uname -m | sed -e 's/aarch64/arm64/')"
+  tmp_dir="$(mktemp -d)"
+
+  curl -Lo "$tmp_dir/lazygit.tar.gz" \
+    "https://github.com/jesseduffield/lazygit/releases/download/v${lazygit_version}/lazygit_${lazygit_version}_Linux_${lazygit_arch}.tar.gz"
+  tar xf "$tmp_dir/lazygit.tar.gz" -C "$tmp_dir" lazygit
+  sudo install "$tmp_dir/lazygit" -D -t /usr/local/bin/
+  rm -rf "$tmp_dir"
+}
+
+install_ghostty_ubuntu() {
+  command -v ghostty >/dev/null 2>&1 && return
+
+  sudo apt install -y software-properties-common
+  sudo add-apt-repository -y ppa:mkasberg/ghostty-ubuntu
+  sudo apt update
+  sudo apt install -y ghostty
+}
+
+install_dotnet_ubuntu() {
+  sudo apt install -y dotnet-sdk-8.0
+}
+
+install_packages_ubuntu() {
+  sudo apt update
+  sudo apt install -y $(cat apt-packages.txt)
+
+  install_bat_symlink_ubuntu
+  install_starship_ubuntu
+  install_lazygit_ubuntu
+  install_ghostty_ubuntu
+  install_dotnet_ubuntu
+}
+
+install_antidote() {
+  local ANTIDOTE_DIR="$HOME/.local/share/antidote"
+  if [ ! -d "$ANTIDOTE_DIR" ]; then
+    git clone --depth=1 https://github.com/mattmc3/antidote.git "$ANTIDOTE_DIR"
+  fi
+}
+
+install_nerd_font() {
+  local FONT_DIR="$HOME/.local/share/fonts/JetBrainsMono"
+  if [ ! -d "$FONT_DIR" ]; then
+    mkdir -p "$FONT_DIR"
+    curl -fLo /tmp/JetBrainsMono.zip \
+      https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+    unzip -o /tmp/JetBrainsMono.zip -d "$FONT_DIR"
+    rm /tmp/JetBrainsMono.zip
+    fc-cache -f "$FONT_DIR"
+  fi
+}
+
+stow_packages() {
+  stow zsh
+  stow ghostty
+  stow starship
+  # stow zellij
+  stow nvim
+  stow claude
+  stow lazygit
+}
+
+main() {
+  local OS
+  OS="$(detect_os)"
+
+  case "$OS" in
+    fedora) install_packages_fedora ;;
+    ubuntu) install_packages_ubuntu ;;
+  esac
+
+  install_antidote
+  install_nerd_font
+  stow_packages
+}
+
+main "$@"

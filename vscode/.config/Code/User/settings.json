@@ -38,7 +38,6 @@
     "breadcrumbs.enabled": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "telemetry.telemetryLevel": "off",
-    "workbench.colorTheme": "GitHub Dark Default",
     "workbench.iconTheme": "vscode-jetbrains-icon-theme-2023-dark",
     // neovim
     "vscode-neovim.compositeKeys": {
@@ -60,4 +59,6 @@
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
+    "diffEditor.renderSideBySide": false,
+    "workbench.colorTheme": "GitHub Dark Default",
 }

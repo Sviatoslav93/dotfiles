@@ -1,0 +1,13 @@
+bat
+eza
+fzf
+git
+git-delta
+kitty
+neovim
+ripgrep
+stow
+tmux
+unzip
+zoxide
+zsh
