@@ -18,3 +18,5 @@ alias gl='git pull'
 # Misc
 alias cls='clear'
 alias reload='exec zsh'
+
+alias fd='fdfind'

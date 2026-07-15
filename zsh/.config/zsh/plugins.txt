@@ -1,6 +1,5 @@
 # Productivity
 zsh-users/zsh-autosuggestions
-zsh-users/zsh-syntax-highlighting
 
 # Better completions
 zsh-users/zsh-completions
@@ -10,3 +9,6 @@ Aloxaf/fzf-tab
 
 # History search
 zsh-users/zsh-history-substring-search
+
+# Must be last
+zsh-users/zsh-syntax-highlighting

@@ -3,6 +3,17 @@
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
+  "extraKnownMarketplaces": {
+    "claude-code-warp": {
+      "source": {
+        "source": "github",
+        "repo": "warpdotdev/claude-code-warp"
+      }
+    }
+  },
   "tui": "fullscreen",
-  "theme": "custom:github-dark"
+  "theme": "custom:github-dark",
+  "enabledPlugins": {
+    "warp@claude-code-warp": true
+  }
 }

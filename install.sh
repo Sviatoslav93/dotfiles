@@ -72,6 +72,7 @@ install_packages_ubuntu() {
   install_lazygit_ubuntu
   install_ghostty_ubuntu
   install_dotnet_ubuntu
+  install_fd
 }
 
 install_antidote() {
@@ -93,15 +94,42 @@ install_nerd_font() {
   fi
 }
 
+install_fd(){
+  apt install fd-find
+}
+
+install_nodejs(){
+  # Download and install nvm:
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh | bash
+
+  # in lieu of restarting the shell
+  \. "$HOME/.nvm/nvm.sh"
+
+  # Download and install Node.js:
+  nvm install 24
+
+  # Verify the Node.js version:
+  node -v # Should print "v24.18.0".
+
+  # Download and install pnpm:
+  corepack enable pnpm
+
+  # Verify pnpm version:
+  pnpm -v
+}
+
 stow_packages() {
-  stow zsh
-  stow ghostty
-  stow starship
-  # stow zellij
-  stow nvim
-  stow claude
-  stow lazygit
-  stow vscode-insiders
+  # --no-folding: stow individual files instead of a whole directory when the
+  # target doesn't exist yet. Without it, e.g. `stow claude` on a machine with
+  # no ~/.claude would symlink ~/.claude itself into the repo, so every
+  # runtime file Claude Code writes under ~/.claude (credentials, sessions,
+  # history, cache...) would land inside this git repo.
+  stow --no-folding zsh
+  stow --no-folding ghostty
+  stow --no-folding starship
+  stow --no-folding nvim
+  stow --no-folding claude
+  stow --no-folding lazygit
 }
 
 main() {
@@ -112,6 +140,8 @@ main() {
 
   install_antidote
   install_nerd_font
+  isntall_nodejs
+
   stow_packages
 }
 
