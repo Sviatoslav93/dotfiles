@@ -2,7 +2,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 if vim.g.vscode then
-    -- VSCode extension
+    -- VSCode extensions
     require('code.options')
     require('code.keymaps')
     require('code.plugins')

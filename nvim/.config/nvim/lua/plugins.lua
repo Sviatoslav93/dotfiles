@@ -26,6 +26,20 @@ require("lazy").setup({
   { "nvim-lua/plenary.nvim",       lazy = true },
   -- Filetype icons for UI plugins.
   { "nvim-tree/nvim-web-devicons", lazy = true },
+  -- Syntax-aware parsing: real highlighting, indent, and flash.nvim's treesitter jumps.
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "master",
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "lua", "vim", "vimdoc", "bash", "markdown", "markdown_inline", "query" },
+        auto_install = true,
+        highlight = { enable = true },
+      })
+    end,
+  },
 
   -- Statusline at the bottom of each window.
   {

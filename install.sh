@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -eo pipefail
 
 cd "$(dirname "$0")"
 
@@ -34,12 +34,20 @@ install_starship_ubuntu() {
   fi
 }
 
+install_gcc_ubuntu() {
+  sudo apt-get install -y build-essential gdb
+}
+
 install_lazygit_ubuntu() {
   command -v lazygit >/dev/null 2>&1 && return
 
   local lazygit_version lazygit_arch tmp_dir
   lazygit_version="$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" \
     | grep -Po '"tag_name": *"v\K[^"]*')"
+  if [ -z "$lazygit_version" ]; then
+    echo "install_lazygit_ubuntu: failed to resolve latest lazygit version" >&2
+    exit 1
+  fi
   lazygit_arch="$(uname -m | sed -e 's/aarch64/arm64/')"
   tmp_dir="$(mktemp -d)"
 
@@ -94,8 +102,11 @@ install_nerd_font() {
   fi
 }
 
-install_fd(){
-  apt install fd-find
+install_fd() {
+  if command -v fd >/dev/null 2>&1 || command -v fdfind >/dev/null 2>&1; then
+    return
+  fi
+  sudo apt install -y fd-find
 }
 
 install_nodejs(){
@@ -130,6 +141,7 @@ stow_packages() {
   stow --no-folding nvim
   stow --no-folding claude
   stow --no-folding lazygit
+  stow --no-folding kitty
 }
 
 main() {
@@ -140,7 +152,7 @@ main() {
 
   install_antidote
   install_nerd_font
-  isntall_nodejs
+  install_nodejs
 
   stow_packages
 }

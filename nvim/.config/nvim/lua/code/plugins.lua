@@ -15,6 +15,22 @@ require("lazy").setup({
     -- Lua helper library
     { "nvim-lua/plenary.nvim", lazy = true },
 
+    -- Syntax-aware parsing: needed for flash.nvim's treesitter jumps.
+    -- VSCode does its own highlighting, so treesitter highlight stays off here.
+    {
+      "nvim-treesitter/nvim-treesitter",
+      branch = "master",
+      lazy = false,
+      build = ":TSUpdate",
+      config = function()
+        require("nvim-treesitter.configs").setup({
+          ensure_installed = { "lua", "vim", "vimdoc", "bash", "markdown", "markdown_inline", "query" },
+          auto_install = true,
+          highlight = { enable = false },
+        })
+      end,
+    },
+
     -- Better textobjects
     {
       "echasnovski/mini.ai",
