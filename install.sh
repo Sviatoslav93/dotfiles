@@ -67,6 +67,15 @@ install_ghostty_ubuntu() {
   sudo apt install -y ghostty
 }
 
+install_wezterm_ubuntu() {
+  command -v wezterm >/dev/null 2>&1 && return
+
+  curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+  echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+  sudo apt update
+  sudo apt install -y wezterm
+}
+
 install_dotnet_ubuntu() {
   sudo apt install -y dotnet-sdk-8.0
 }
@@ -79,6 +88,7 @@ install_packages_ubuntu() {
   install_starship_ubuntu
   install_lazygit_ubuntu
   install_ghostty_ubuntu
+  install_wezterm_ubuntu
   install_dotnet_ubuntu
   install_fd
 }
@@ -142,6 +152,7 @@ stow_packages() {
   stow --no-folding claude
   stow --no-folding lazygit
   stow --no-folding kitty
+  stow --no-folding wezterm
 }
 
 main() {
