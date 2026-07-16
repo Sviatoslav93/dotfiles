@@ -10,5 +10,8 @@ Aloxaf/fzf-tab
 # History search
 zsh-users/zsh-history-substring-search
 
-# Must be last
+# Must load after other widget-defining plugins above
 zsh-users/zsh-syntax-highlighting
+
+# Vim motions (must load last — wraps widgets from all plugins above)
+jeffreytse/zsh-vi-mode

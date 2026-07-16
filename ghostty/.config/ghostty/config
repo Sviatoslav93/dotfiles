@@ -11,7 +11,9 @@ window-padding-x = 10
 window-padding-y = 10
 
 cursor-style = block
-cursor-style-blink = true
+cursor-style-blink = false
+cursor-color = #cba6f7
+adjust-cursor-thickness = 100%
 
 scrollback-limit = 100000
 
