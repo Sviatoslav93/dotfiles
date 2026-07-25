@@ -31,6 +31,13 @@ $character"""
 
 palette = 'catppuccin_mocha'
 
+[profiles]
+transient = ""
+
+rtransient = """
+$cmd_duration\
+"""
+
 [os]
 disabled = false
 style = "bg:red fg:crust"
