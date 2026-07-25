@@ -23,12 +23,11 @@ function transient-prompt() {
 }
 
 # Separate each command's block (prompt + output) from the next with a
-# blank line and a dim horizontal rule, skipped before the very first
+# blank line
 # prompt of a new shell.
 function _prompt_separator_precmd() {
     if [[ -n $_PROMPT_SEPARATOR_SHOWN ]]; then
         print
-        print -P "%F{#585b70}$(printf '%*s' "${COLUMNS:-80}" '' | tr ' ' '-')%f"
     fi
     _PROMPT_SEPARATOR_SHOWN=1
 }
