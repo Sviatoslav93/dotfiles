@@ -1,0 +1,8 @@
+[keys]
+prefix = "ctrl+a"
+
+[theme]
+name = "vesper"
+
+[ui.toast]
+delivery = "off"

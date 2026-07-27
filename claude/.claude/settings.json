@@ -1,10 +1,15 @@
 {
+  "permissions": {
+    "defaultMode": "auto"
+  },
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
   },
   "enabledPlugins": {
-    "warp@claude-code-warp": true
+    "warp@claude-code-warp": true,
+    "csharp-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-code-warp": {

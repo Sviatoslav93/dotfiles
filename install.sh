@@ -153,6 +153,7 @@ stow_packages() {
   stow --no-folding lazygit
   stow --no-folding kitty
   stow --no-folding wezterm
+  stow --no-folding herdr
 }
 
 main() {
