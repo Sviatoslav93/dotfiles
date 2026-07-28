@@ -26,8 +26,8 @@ config.window_padding = {
 	bottom = 10,
 }
 
-config.cursor_blink_rate = 0
-config.default_cursor_style = "SteadyBlock"
+-- config.cursor_blink_rate = 0
+-- config.default_cursor_style = "SteadyBlock"
 config.colors = {
 	cursor_bg = "#cba6f7",
 	cursor_border = "#cba6f7",

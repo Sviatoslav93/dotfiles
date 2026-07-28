@@ -1,26 +1,42 @@
 {
-  "permissions": {
-    "defaultMode": "auto"
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.sh"
-  },
+  "editorMode": "vim",
   "enabledPlugins": {
-    "warp@claude-code-warp": true,
     "csharp-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "warp@claude-code-warp": true
   },
   "extraKnownMarketplaces": {
     "claude-code-warp": {
       "source": {
-        "source": "github",
-        "repo": "warpdotdev/claude-code-warp"
+        "repo": "warpdotdev/claude-code-warp",
+        "source": "github"
       }
     }
   },
-  "tui": "fullscreen",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/home/sviatoslav/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ]
+  },
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "statusLine": {
+    "command": "~/.claude/statusline.sh",
+    "type": "command"
+  },
   "theme": "custom:github-dark",
-  "editorMode": "vim",
-  "vimInsertModeRemaps": { "jk": "<Esc>" }
+  "tui": "fullscreen",
+  "vimInsertModeRemaps": {
+    "jk": "<Esc>"
+  }
 }
