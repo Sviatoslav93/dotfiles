@@ -15,18 +15,3 @@ zvm_after_lazy_keybindings() {
     zvm_bindkey visual 'H' vi-digit-or-beginning-of-line
     zvm_bindkey visual 'L' vi-end-of-line
 }
-
-zvm_after_select_vi_mode() {
-    local color
-    case $ZVM_MODE in
-        $ZVM_MODE_NORMAL) color='#a6e3a1' ;;
-        $ZVM_MODE_VISUAL|$ZVM_MODE_VISUAL_LINE) color='#f9e2af' ;;
-        $ZVM_MODE_REPLACE) color='#b4befe' ;;
-        *) color='#cba6f7' ;;
-    esac
-    printf '\e]12;%s\a' "$color"
-}
-
-zshexit() {
-    printf '\e]112\a'
-}
