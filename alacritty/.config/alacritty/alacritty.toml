@@ -1,0 +1,6 @@
+[general]
+import = [
+  "~/.config/alacritty/font.toml",
+  "~/.config/alacritty/font-size.toml",
+  "~/.config/alacritty/shared.toml",
+]

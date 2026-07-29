@@ -146,6 +146,7 @@ stow_packages() {
   # runtime file Claude Code writes under ~/.claude (credentials, sessions,
   # history, cache...) would land inside this git repo.
   stow --no-folding zsh
+  stow --no-folding alacritty
   stow --no-folding ghostty
   stow --no-folding starship
   stow --no-folding nvim
