@@ -1,41 +1,42 @@
 {
-  "editorMode": "vim",
-  "enabledPlugins": {
-    "csharp-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "warp@claude-code-warp": true
-  },
-  "extraKnownMarketplaces": {
-    "claude-code-warp": {
-      "source": {
-        "repo": "warpdotdev/claude-code-warp",
-        "source": "github"
-      }
-    }
+  "permissions": {
+    "defaultMode": "auto"
   },
   "hooks": {
     "SessionStart": [
       {
+        "matcher": "*",
         "hooks": [
           {
+            "type": "command",
             "command": "bash '/home/sviatoslav/.claude/hooks/herdr-agent-state.sh' session",
-            "timeout": 10,
-            "type": "command"
+            "timeout": 10
           }
-        ],
-        "matcher": "*"
+        ]
       }
     ]
   },
-  "permissions": {
-    "defaultMode": "auto"
-  },
   "statusLine": {
-    "command": "~/.claude/statusline.sh",
-    "type": "command"
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
   },
-  "theme": "custom:github-dark",
+  "enabledPlugins": {
+    "csharp-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "warp@claude-code-warp": true,
+    "context7@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-code-warp": {
+      "source": {
+        "source": "github",
+        "repo": "warpdotdev/claude-code-warp"
+      }
+    }
+  },
   "tui": "fullscreen",
+  "theme": "custom:github-dark",
+  "editorMode": "vim",
   "vimInsertModeRemaps": {
     "jk": "<Esc>"
   }
