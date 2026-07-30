@@ -32,3 +32,11 @@ function _prompt_separator_precmd() {
     _PROMPT_SEPARATOR_SHOWN=1
 }
 add-zsh-hook precmd _prompt_separator_precmd
+
+# `clear` finishing a command cycle would otherwise trigger the separator
+# blank line above on the next prompt, landing it one row lower than Ctrl+L
+# (which redraws in place via ZLE without re-running precmd).
+function clear() {
+    command clear
+    unset _PROMPT_SEPARATOR_SHOWN
+}
