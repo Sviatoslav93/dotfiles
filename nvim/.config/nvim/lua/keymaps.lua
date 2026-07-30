@@ -73,14 +73,7 @@ map("n", "<leader>bo", "<cmd>BufferCloseAllButCurrent<CR>", opts)
 -- magic: jump mode 🔥
 map("n", "<leader>b", "<cmd>BufferPick<CR>", opts)
 
--- keymap (IMPORTANT)
-vim.keymap.set("n", "<leader>e", ":Vex<CR>", { desc = "Explorer (left)" })
-
--- toggle explorer (close if already open)
+-- toggle file explorer (floating oil.nvim)
 map("n", "<leader>e", function()
-  if vim.bo.filetype == "netrw" then
-    vim.cmd("bd")
-  else
-    vim.cmd("Ex")
-  end
-end, { desc = "Toggle netrw" })
+  require("oil").toggle_float()
+end, { desc = "Toggle file explorer" })

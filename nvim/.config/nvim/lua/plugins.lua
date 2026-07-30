@@ -104,6 +104,18 @@ require("lazy").setup({
     event = "VeryLazy",
     opts = {},
   },
+  -- Edit the filesystem like a normal buffer; replaces netrw as the file explorer.
+  {
+    "stevearc/oil.nvim",
+    lazy = false,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      default_file_explorer = true,
+      view_options = {
+        show_hidden = true,
+      },
+    },
+  },
   {
     "romgrk/barbar.nvim",
     dependencies = {
