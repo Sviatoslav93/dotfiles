@@ -14,15 +14,14 @@ keymap("v", ">", ">gv", opts)
 keymap("n", "J", "v:count == 0 ? '5j' : 'j'", { expr = true, noremap = true, silent = true })
 keymap("n", "K", "v:count == 0 ? '5k' : 'k'", { expr = true, noremap = true, silent = true })
 
--- visual mode (blocks)
-keymap("x", "J", ":m '>+1<CR>gv=gv", opts)
-keymap("x", "K", ":m '<-2<CR>gv=gv", opts)
-
 -- keep cursor centered
 keymap("n", "n", "nzz")
 keymap("n", "N", "Nzz")
 keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
+
+-- <C-f> is vim's built-in full-page-down scroll; override it to VS Code's find widget instead
+keymap({ "n", "v" }, "<C-f>", "<cmd>lua require('vscode').action('actions.find')<CR>")
 
 -- splits
 keymap("n", "<leader>sv", "<cmd>lua require('vscode').action('workbench.action.splitEditorRight')<CR>")
@@ -48,7 +47,6 @@ keymap("n", "<leader>mj", "<cmd>lua require('vscode').action('workbench.action.m
 
 -- tab manipulation
 keymap({ "n" }, "<leader>q", "<cmd>lua require('vscode').action('workbench.action.closeActiveEditor')<CR>")
-keymap({ "n" }, "<leader>w", "<cmd>lua require('vscode').action('workbench.action.saveactiveeditor')<cr>")
 keymap({ "n" }, "<leader><leader>w", "<cmd>lua require('vscode').action('workbench.action.saveall')<cr>")
 
 -- paste preserves primal yanked piece
@@ -66,6 +64,7 @@ keymap("n", "gL", "L", opts)
 -- general keymaps
 keymap({ "n", "v" }, "<leader>t", "<cmd>lua require('vscode').action('workbench.action.terminal.toggleTerminal')<CR>")
 keymap({ "n", "v" }, "<leader><leader>b", "<cmd>lua require('vscode').action('editor.debug.action.toggleBreakpoint')<CR>")
+keymap("n", "<leader><leader>h", "<cmd>lua require('vscode').action('editor.debug.action.showDebugHover')<CR>")
 keymap({ "n", "v" }, "<leader>d", "<cmd>lua require('vscode').action('editor.action.showHover')<CR>")
 keymap({ "n", "v" }, "<leader>a", "<cmd>lua require('vscode').action('editor.action.quickFix')<CR>")
 keymap({ "n", "v" }, "<leader>sp", "<cmd>lua require('vscode').action('workbench.actions.view.problems')<CR>")
@@ -82,14 +81,24 @@ keymap("n", "<leader>pd", "<cmd>lua require('vscode').action('editor.action.peek
 keymap("n", "<leader>pr", "<cmd>lua require('vscode').action('editor.action.referenceSearch.trigger')<CR>", opts)
 keymap("n", "<leader>fr", "<cmd>lua require('vscode').action('editor.action.referenceSearch.trigger')<CR>", opts)
 
--- multi-cursor (native VS Code multi-cursor; <C-d>/<C-u> stay bound to scroll above)
-keymap({ "n", "v" }, "<leader>cd", "<cmd>lua require('vscode').action('editor.action.addSelectionToNextFindMatch')<CR>")
-keymap({ "n", "v" }, "<leader>cD", "<cmd>lua require('vscode').action('editor.action.addSelectionToPreviousFindMatch')<CR>")
-keymap({ "n", "v" }, "<leader>cs", "<cmd>lua require('vscode').action('editor.action.moveSelectionToNextFindMatch')<CR>")
-keymap({ "n", "v" }, "<leader>cA", "<cmd>lua require('vscode').action('editor.action.selectHighlights')<CR>")
-keymap({ "n", "v" }, "<leader>ck", "<cmd>lua require('vscode').action('editor.action.insertCursorAbove')<CR>")
-keymap({ "n", "v" }, "<leader>cj", "<cmd>lua require('vscode').action('editor.action.insertCursorBelow')<CR>")
-keymap("v", "<leader>cI", "<cmd>lua require('vscode').action('editor.action.insertCursorAtEndOfEachLineSelected')<CR>")
+-- CamelCase/snake_case-aware word motion (VS Code's built-in cursorWordPart*, not plain w/b)
+keymap("n", "<leader>w", "<cmd>lua require('vscode').action('cursorWordPartRight')<CR>", opts)
+keymap("n", "<leader>b", "<cmd>lua require('vscode').action('cursorWordPartLeft')<CR>", opts)
+keymap("v", "<leader>w", "<cmd>lua require('vscode').action('cursorWordPartRightSelect')<CR>", opts)
+keymap("v", "<leader>b", "<cmd>lua require('vscode').action('cursorWordPartLeftSelect')<CR>", opts)
+
+-- rename symbol
+keymap("n", "<leader>rn", "<cmd>lua require('vscode').action('editor.action.rename')<CR>", opts)
+
+-- diagnostics navigation (mirrors standalone nvim's lsp.lua ]d/[d)
+keymap("n", "]d", "<cmd>lua require('vscode').action('editor.action.marker.next')<CR>", opts)
+keymap("n", "[d", "<cmd>lua require('vscode').action('editor.action.marker.prevInFiles')<CR>", opts)
+
+-- go to symbol / outline
+keymap("n", "<leader>so", "<cmd>lua require('vscode').action('editor.action.quickOutline')<CR>", opts)
+
+-- toggle file explorer sidebar
+keymap("n", "<leader>e", "<cmd>lua require('vscode').action('workbench.view.explorer')<CR>", opts)
 
 -- harpoon keymaps
 keymap({ "n", "v" }, "<leader>ha", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>")
