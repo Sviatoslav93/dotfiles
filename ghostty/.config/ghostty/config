@@ -1,4 +1,4 @@
-theme = GitHub Dark
+theme = Kanagawa Dragon
 
 font-family = JetBrainsMono Nerd Font
 font-size = 13
@@ -13,7 +13,7 @@ window-padding-y = 10
 
 cursor-style = block
 cursor-style-blink = false
-cursor-color = #cba6f7
+cursor-color = #c8c093
 adjust-cursor-thickness = 100%
 
 scrollback-limit = 100000

@@ -22,6 +22,7 @@ require("lazy").setup({
       branch = "master",
       lazy = false,
       build = ":TSUpdate",
+      dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
       config = function()
         require("nvim-treesitter.configs").setup({
           ensure_installed = { "lua", "vim", "vimdoc", "bash", "markdown", "markdown_inline", "query" },
@@ -31,11 +32,20 @@ require("lazy").setup({
       end,
     },
 
-    -- Better textobjects
+    -- Better textobjects; "f"/"if"/"af" select the enclosing function
+    -- definition (via treesitter) instead of mini.ai's default "function call".
     {
       "echasnovski/mini.ai",
       version = "*",
-      opts = {},
+      dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+      opts = function()
+        local ai = require("mini.ai")
+        return {
+          custom_textobjects = {
+            f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+          },
+        }
+      end,
     },
 
     -- Arguments
@@ -55,7 +65,7 @@ require("lazy").setup({
           replace = "<leader>sr",
           find = "<leader>sf",
           find_left = "<leader>sF",
-          highlight = "<leader>sh",
+          highlight = "<leader>sH",
           update_n_lines = "<leader>sn",
         },
       },

@@ -12,14 +12,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  -- Dark low-contrast theme (load before other UI plugins).
+  -- Kanagawa theme (load before other UI plugins).
   {
-    "vague-theme/vague.nvim",
+    "rebelot/kanagawa.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      require("vague").setup({})
-      vim.cmd.colorscheme("vague")
+      require("kanagawa").setup({ theme = "dragon", background = { dark = "dragon" } })
+      vim.cmd.colorscheme("kanagawa-dragon")
     end,
   },
   -- Lua helper library used by many plugins.
@@ -34,7 +34,7 @@ require("lazy").setup({
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "lua", "vim", "vimdoc", "bash", "markdown", "markdown_inline", "query" },
+        ensure_installed = { "lua", "vim", "vimdoc", "bash", "markdown", "markdown_inline", "query", "c_sharp", "xml" },
         auto_install = true,
         highlight = { enable = true },
       })
@@ -63,7 +63,30 @@ require("lazy").setup({
     "nvim-telescope/telescope.nvim",
     version = false,
     cmd = "Telescope",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    -- Loaded on VeryLazy too so the ui-select override below is active before any
+    -- vim.ui.select call (e.g. code actions), not just after :Telescope has run once.
+    event = "VeryLazy",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-ui-select.nvim", -- floating popup for vim.ui.select (code actions, etc.)
+    },
+    config = function()
+      require("telescope").setup({
+        extensions = {
+          ["ui-select"] = require("telescope.themes").get_dropdown({}),
+        },
+      })
+      require("telescope").load_extension("ui-select")
+    end,
+  },
+  -- VS Code-style lightbulb: shows a sign when code actions are available at the cursor.
+  {
+    "kosayoda/nvim-lightbulb",
+    event = "VeryLazy",
+    opts = {
+      autocmd = { enabled = true },
+      sign = { enabled = true, text = "💡" },
+    },
   },
   -- Seamless navigation between tmux panes and Neovim splits.
   {
@@ -116,6 +139,19 @@ require("lazy").setup({
       },
     },
   },
+  -- Persistent left sidebar file tree (VS Code Explorer-style), distinct from oil's buffer-editing style.
+  {
+    "nvim-tree/nvim-tree.lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    lazy = false,
+    opts = {
+      disable_netrw = false,
+      hijack_netrw = false, -- oil.nvim already owns netrw
+      view = { width = 30, side = "left" },
+      renderer = { group_empty = true },
+      update_focused_file = { enable = true },
+    },
+  },
   {
     "romgrk/barbar.nvim",
     dependencies = {
@@ -145,6 +181,71 @@ require("lazy").setup({
           },
         },
       })
+    end,
+  },
+  -- Completion engine; feeds capabilities to LSP servers (see lua/lsp.lua).
+  {
+    "saghen/blink.cmp",
+    version = "1.*",
+    event = "InsertEnter",
+    opts = {
+      -- "super-tab": Tab selects+accepts, like VS Code/Rider intellisense.
+      keymap = { preset = "super-tab" },
+      completion = { documentation = { auto_show = true } },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
+    },
+  },
+  -- .NET/C# IDE layer: Roslyn LSP, build/run/watch, test runner, NuGet, DAP registration.
+  {
+    "GustavEikaas/easy-dotnet.nvim",
+    ft = { "cs", "fsproj", "csproj", "sln", "slnx", "fs" },
+    cmd = "Dotnet",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("easy-dotnet").setup({
+        lsp = {
+          config = {
+            capabilities = require("lsp").capabilities(),
+          },
+        },
+        debugger = { enabled = true },
+        test_runner = { viewmode = "float" },
+        picker = "telescope",
+      })
+    end,
+  },
+  -- Debug Adapter Protocol client; easy-dotnet.nvim auto-registers the netcoredbg configs onto this.
+  {
+    "mfussenegger/nvim-dap",
+    keys = {
+      { "<F5>", function() require("dap").continue() end,   desc = "DAP: Continue" },
+      { "<F9>", function() require("dap").toggle_breakpoint() end, desc = "DAP: Toggle breakpoint" },
+      { "<F10>", function() require("dap").step_over() end, desc = "DAP: Step over" },
+      { "<F11>", function() require("dap").step_into() end, desc = "DAP: Step into" },
+      { "<S-F11>", function() require("dap").step_out() end, desc = "DAP: Step out" },
+    },
+  },
+  -- Visual UI (breakpoints, scopes, stack, REPL) for nvim-dap.
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    keys = {
+      { "<leader>du", function() require("dapui").toggle() end, desc = "Toggle DAP UI" },
+    },
+    config = function()
+      local dap, dapui = require("dap"), require("dapui")
+      dapui.setup()
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
     end,
   },
 }, {

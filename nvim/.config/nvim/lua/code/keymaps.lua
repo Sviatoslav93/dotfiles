@@ -48,7 +48,7 @@ keymap("n", "<leader>mj", "<cmd>lua require('vscode').action('workbench.action.m
 
 -- tab manipulation
 keymap({ "n" }, "<leader>q", "<cmd>lua require('vscode').action('workbench.action.closeActiveEditor')<CR>")
-keymap({ "n" }, "<leader><leader>w", "<cmd>lua require('vscode').action('workbench.action.saveactiveeditor')<cr>")
+keymap({ "n" }, "<leader>w", "<cmd>lua require('vscode').action('workbench.action.saveactiveeditor')<cr>")
 keymap({ "n" }, "<leader><leader>w", "<cmd>lua require('vscode').action('workbench.action.saveall')<cr>")
 
 -- paste preserves primal yanked piece
@@ -72,7 +72,7 @@ keymap({ "n", "v" }, "<leader>sp", "<cmd>lua require('vscode').action('workbench
 keymap({ "n", "v" }, "<leader>cn", "<cmd>lua require('vscode').action('notifications.clearAll')<CR>")
 keymap({ "n", "v" }, "<leader>ff", "<cmd>lua require('vscode').action('workbench.action.quickOpen')<CR>")
 keymap({ "n", "v" }, "<leader>cp", "<cmd>lua require('vscode').action('workbench.action.showCommands')<CR>")
-keymap({ "n", "v" }, "<leader>pr", "<cmd>lua require('vscode').action('code-runner.run')<CR>")
+keymap({ "n", "v" }, "<leader>rr", "<cmd>lua require('vscode').action('code-runner.run')<CR>")
 keymap({ "n", "v" }, "<leader>fd", "<cmd>lua require('vscode').action('editor.action.formatDocument')<CR>")
 
 -- code navigation
@@ -81,6 +81,15 @@ keymap("n", "<leader>pi", "<cmd>lua require('vscode').action('editor.action.peek
 keymap("n", "<leader>pd", "<cmd>lua require('vscode').action('editor.action.peekDefinition')<CR>", opts)
 keymap("n", "<leader>pr", "<cmd>lua require('vscode').action('editor.action.referenceSearch.trigger')<CR>", opts)
 keymap("n", "<leader>fr", "<cmd>lua require('vscode').action('editor.action.referenceSearch.trigger')<CR>", opts)
+
+-- multi-cursor (native VS Code multi-cursor; <C-d>/<C-u> stay bound to scroll above)
+keymap({ "n", "v" }, "<leader>cd", "<cmd>lua require('vscode').action('editor.action.addSelectionToNextFindMatch')<CR>")
+keymap({ "n", "v" }, "<leader>cD", "<cmd>lua require('vscode').action('editor.action.addSelectionToPreviousFindMatch')<CR>")
+keymap({ "n", "v" }, "<leader>cs", "<cmd>lua require('vscode').action('editor.action.moveSelectionToNextFindMatch')<CR>")
+keymap({ "n", "v" }, "<leader>cA", "<cmd>lua require('vscode').action('editor.action.selectHighlights')<CR>")
+keymap({ "n", "v" }, "<leader>ck", "<cmd>lua require('vscode').action('editor.action.insertCursorAbove')<CR>")
+keymap({ "n", "v" }, "<leader>cj", "<cmd>lua require('vscode').action('editor.action.insertCursorBelow')<CR>")
+keymap("v", "<leader>cI", "<cmd>lua require('vscode').action('editor.action.insertCursorAtEndOfEachLineSelected')<CR>")
 
 -- harpoon keymaps
 keymap({ "n", "v" }, "<leader>ha", "<cmd>lua require('vscode').action('vscode-harpoon.addEditor')<CR>")

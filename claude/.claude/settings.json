@@ -35,7 +35,7 @@
     }
   },
   "tui": "fullscreen",
-  "theme": "custom:github-dark",
+  "theme": "auto",
   "editorMode": "vim",
   "vimInsertModeRemaps": {
     "jk": "<Esc>"

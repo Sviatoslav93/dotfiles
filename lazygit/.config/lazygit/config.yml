@@ -8,25 +8,25 @@ gui:
   border: rounded
   theme:
     activeBorderColor:
-      - "#7aa2f7"
+      - "#7fb4ca"
       - bold
     inactiveBorderColor:
-      - "#565f89"
+      - "#625e5a"
     searchingActiveBorderColor:
-      - "#e0af68"
+      - "#e6c384"
       - bold
     optionsTextColor:
-      - "#7dcfff"
+      - "#7aa89f"
     selectedLineBgColor:
-      - "#283457"
+      - "#2d4f67"
     cherryPickedCommitBgColor:
-      - "#3b4261"
+      - "#282727"
     cherryPickedCommitFgColor:
-      - "#bb9af7"
+      - "#938aa9"
     unstagedChangesColor:
-      - "#f7768e"
+      - "#e46876"
     defaultFgColor:
-      - "#c0caf5"
+      - "#c5c9c5"
 git:
   pagers:
     - colorArg: always

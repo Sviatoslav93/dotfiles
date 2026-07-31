@@ -18,7 +18,7 @@ $dotnet\
 $line_break\
 $character"""
 
-palette = 'catppuccin_mocha'
+palette = 'kanagawa'
 
 [profiles]
 transient = ""
@@ -113,6 +113,34 @@ vimcmd_symbol = '[\$](bold fg:mauve)'
 vimcmd_replace_one_symbol = '[\$](bold fg:mauve)'
 vimcmd_replace_symbol = '[\$](bold fg:mauve)'
 vimcmd_visual_symbol = '[\$](bold fg:mauve)'
+
+[palettes.kanagawa]
+rosewater = "#c8c093"
+flamingo = "#c4746e"
+pink = "#a292a3"
+mauve = "#938aa9"
+red = "#e46876"
+maroon = "#c4746e"
+peach = "#c4b28a"
+yellow = "#e6c384"
+green = "#87a987"
+teal = "#7aa89f"
+sky = "#8ea4a2"
+sapphire = "#7fb4ca"
+blue = "#8ba4b0"
+lavender = "#7fb4ca"
+text = "#c5c9c5"
+subtext1 = "#c8c093"
+subtext0 = "#a6a69c"
+overlay2 = "#a6a69c"
+overlay1 = "#a6a69c"
+overlay0 = "#0d0c0c"
+surface2 = "#2d4f67"
+surface1 = "#2d4f67"
+surface0 = "#0d0c0c"
+base = "#181616"
+mantle = "#0d0c0c"
+crust = "#0d0c0c"
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"

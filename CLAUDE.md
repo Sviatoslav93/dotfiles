@@ -12,7 +12,7 @@ Personal dotfiles for an Ubuntu + Zsh + Neovim setup, managed with GNU Stow. Eac
 ./install.sh
 ```
 
-This runs `stow <package>` for each package (git, zsh, alacritty, ghostty, starship, nvim, claude, lazygit, kitty, wezterm, herdr — zellij is present but currently commented out). Stow symlinks files from the package directory into `$HOME`, so editing a file in this repo immediately affects the live config once stowed; no build/compile step exists for any package here.
+This runs `stow <package>` for each package (zsh, alacritty, ghostty, starship, nvim, claude, lazygit, kitty, wezterm, herdr, zellij). Stow symlinks files from the package directory into `$HOME`, so editing a file in this repo immediately affects the live config once stowed; no build/compile step exists for any package here.
 
 To stow/unstow an individual package while testing changes:
 

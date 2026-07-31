@@ -73,7 +73,14 @@ map("n", "<leader>bo", "<cmd>BufferCloseAllButCurrent<CR>", opts)
 -- magic: jump mode 🔥
 map("n", "<leader>b", "<cmd>BufferPick<CR>", opts)
 
--- toggle file explorer (floating oil.nvim)
-map("n", "<leader>e", function()
-  require("oil").toggle_float()
-end, { desc = "Toggle file explorer" })
+-- toggle file explorer sidebar (nvim-tree, VS Code Explorer-style)
+map("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
+
+-- open floating oil.nvim (edit current directory as a buffer)
+map("n", "-", "<Cmd>Oil --float<CR>", { desc = "Open parent directory (float)" })
+
+-- dotnet project actions (easy-dotnet.nvim)
+map("n", "<leader>dr", "<Cmd>Dotnet run<CR>", { desc = "Dotnet run" })
+map("n", "<leader>db", "<Cmd>Dotnet build<CR>", { desc = "Dotnet build" })
+map("n", "<leader>dt", "<Cmd>Dotnet testrunner<CR>", { desc = "Dotnet test runner" })
+map("n", "<leader>ds", "<Cmd>Dotnet solution select<CR>", { desc = "Dotnet select solution" })

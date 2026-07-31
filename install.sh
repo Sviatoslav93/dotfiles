@@ -155,6 +155,7 @@ stow_packages() {
   stow --no-folding kitty
   stow --no-folding wezterm
   stow --no-folding herdr
+  stow --no-folding zellij
 }
 
 main() {
