@@ -153,8 +153,6 @@ stow_packages() {
   stow --no-folding claude
   stow --no-folding lazygit
   stow --no-folding kitty
-  stow --no-folding wezterm
-  stow --no-folding herdr
   stow --no-folding zellij
 }
 
