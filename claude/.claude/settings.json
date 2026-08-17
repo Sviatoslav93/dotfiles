@@ -9,7 +9,6 @@
   "enabledPlugins": {
     "csharp-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "warp@claude-code-warp": true,
     "context7@claude-plugins-official": true,
     "playwright@claude-plugins-official": true
   },
