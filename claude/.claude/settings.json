@@ -17,5 +17,6 @@
   "editorMode": "vim",
   "vimInsertModeRemaps": {
     "jk": "<Esc>"
-  }
+  },
+  "agentPushNotifEnabled": true
 }

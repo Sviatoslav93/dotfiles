@@ -2,7 +2,7 @@
 padding.x = 10
 padding.y = 10
 decorations = "Full"
-opacity = 0.95
+opacity = 1
 
 [colors.primary]
 foreground = "#c5c9c5"
