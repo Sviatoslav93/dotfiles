@@ -1,4 +1,9 @@
-# bat aliases
+# bat aliases (Ubuntu ships it as `batcat`)
 
-alias cat='bat'
-alias catp='bat --plain'
+if (( $+commands[bat] )); then
+    alias cat='bat'
+    alias catp='bat --plain'
+elif (( $+commands[batcat] )); then
+    alias cat='batcat'
+    alias catp='batcat --plain'
+fi

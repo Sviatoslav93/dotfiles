@@ -1,4 +1,5 @@
 # eza aliases
+(( $+commands[eza] )) || return 0
 
 alias ll='eza -lh --git'
 alias la='eza -lah --git'

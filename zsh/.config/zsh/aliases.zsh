@@ -19,4 +19,4 @@ alias gl='git pull'
 alias cls='clear'
 alias reload='exec zsh'
 
-alias fd='fdfind'
+(( $+commands[fdfind] )) && alias fd='fdfind'

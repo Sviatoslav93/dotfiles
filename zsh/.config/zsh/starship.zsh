@@ -1,3 +1,5 @@
+command -v starship >/dev/null || return 0
+
 eval "$(starship init zsh)"
 
 # Transient prompt: after a command runs, collapse the fancy prompt down to

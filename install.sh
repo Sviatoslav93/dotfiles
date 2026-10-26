@@ -58,15 +58,6 @@ install_lazygit_ubuntu() {
   rm -rf "$tmp_dir"
 }
 
-install_ghostty_ubuntu() {
-  command -v ghostty >/dev/null 2>&1 && return
-
-  sudo apt install -y software-properties-common
-  sudo add-apt-repository -y ppa:mkasberg/ghostty-ubuntu
-  sudo apt update
-  sudo apt install -y ghostty
-}
-
 install_wezterm_ubuntu() {
   command -v wezterm >/dev/null 2>&1 && return
 
@@ -87,7 +78,6 @@ install_packages_ubuntu() {
   install_bat_symlink_ubuntu
   install_starship_ubuntu
   install_lazygit_ubuntu
-  install_ghostty_ubuntu
   install_wezterm_ubuntu
   install_dotnet_ubuntu
   install_fd
@@ -147,12 +137,10 @@ stow_packages() {
   # history, cache...) would land inside this git repo.
   stow --no-folding zsh
   stow --no-folding alacritty
-  stow --no-folding ghostty
   stow --no-folding starship
   stow --no-folding nvim
   stow --no-folding claude
   stow --no-folding lazygit
-  stow --no-folding kitty
   stow --no-folding zellij
 }
 

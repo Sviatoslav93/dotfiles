@@ -19,3 +19,6 @@ setopt EXTENDED_GLOB
 # Nice shell
 setopt INTERACTIVE_COMMENTS
 setopt NO_BEEP
+
+# Line editing (explicit: EDITOR=nvim would otherwise auto-select vi keymap)
+bindkey -e

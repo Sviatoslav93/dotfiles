@@ -15,3 +15,12 @@ if [[ ! -r "$plugins_bundle" || "$plugins_txt" -nt "$plugins_bundle" ]]; then
 fi
 
 source "$plugins_bundle"
+
+# History substring search: Up/Down (normal and application cursor mode), Ctrl-P/N
+HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey '^[OA' history-substring-search-up
+bindkey '^[OB' history-substring-search-down
+bindkey '^P' history-substring-search-up
+bindkey '^N' history-substring-search-down

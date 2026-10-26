@@ -10,7 +10,7 @@ background = "#181616"
 
 [colors.cursor]
 text = "#181616"
-cursor = "#c5c9c5"
+cursor = "#ff8a5c"
 
 [colors.selection]
 text = "#c8c093"
@@ -37,7 +37,7 @@ cyan = "#7aa89f"
 white = "#c5c9c5"
 
 [cursor]
-style = { shape = "Block", blinking = "Never" }
+style = { shape = "Beam", blinking = "Never" }
 
 [scrolling]
 history = 100000

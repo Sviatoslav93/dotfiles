@@ -18,3 +18,8 @@ export LESS="-R"
 
 # Personal bin
 export PATH="$HOME/.local/bin:$PATH"
+# .NET global tools
+export PATH="$PATH:$HOME/.dotnet/tools"
+
+# Qt apps: native Wayland
+[[ $XDG_SESSION_TYPE == wayland ]] && export QT_QPA_PLATFORM=wayland
