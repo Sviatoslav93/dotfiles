@@ -58,6 +58,35 @@ install_lazygit_ubuntu() {
   rm -rf "$tmp_dir"
 }
 
+install_zellij_ubuntu() {
+  command -v zellij >/dev/null 2>&1 && return
+
+  local tmp_dir
+  tmp_dir="$(mktemp -d)"
+  curl -fLo "$tmp_dir/zellij.tar.gz" \
+    "https://github.com/zellij-org/zellij/releases/latest/download/zellij-$(uname -m)-unknown-linux-musl.tar.gz"
+  tar xf "$tmp_dir/zellij.tar.gz" -C "$tmp_dir" zellij
+  sudo install "$tmp_dir/zellij" -D -t /usr/local/bin/
+  rm -rf "$tmp_dir"
+}
+
+install_yazi_ubuntu() {
+  command -v yazi >/dev/null 2>&1 && return
+  sudo snap install yazi --classic
+}
+
+# Flathub isn't enabled on stock Ubuntu; LocalSend is AirDrop-style file
+# sharing with phones/other PCs.
+setup_flatpak() {
+  flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+  flatpak install --user -y --noninteractive flathub org.localsend.localsend_app
+}
+
+# Syncthing runs as a user service; web UI at http://127.0.0.1:8384
+setup_syncthing() {
+  systemctl --user enable --now syncthing.service
+}
+
 install_wezterm_ubuntu() {
   command -v wezterm >/dev/null 2>&1 && return
 
@@ -78,9 +107,13 @@ install_packages_ubuntu() {
   install_bat_symlink_ubuntu
   install_starship_ubuntu
   install_lazygit_ubuntu
+  install_zellij_ubuntu
+  install_yazi_ubuntu
   install_wezterm_ubuntu
   install_dotnet_ubuntu
-  install_fd
+  setup_flatpak
+  setup_syncthing
+  tldr --update
 }
 
 install_antidote() {
@@ -100,13 +133,6 @@ install_nerd_font() {
     rm /tmp/JetBrainsMono.zip
     fc-cache -f "$FONT_DIR"
   fi
-}
-
-install_fd() {
-  if command -v fd >/dev/null 2>&1 || command -v fdfind >/dev/null 2>&1; then
-    return
-  fi
-  sudo apt install -y fd-find
 }
 
 install_nodejs(){
@@ -142,6 +168,7 @@ stow_packages() {
   stow --no-folding claude
   stow --no-folding lazygit
   stow --no-folding zellij
+  stow --no-folding git
 }
 
 main() {
